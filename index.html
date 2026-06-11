@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Profile Stats Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #0d1117;
+      color: #c9d1d9;
+    }
+    h1 {
+      color: #58a6ff;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      cursor: pointer;
+    }
+    .card {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      background: #161b22;
+    }
+    img {
+      width: 120px;
+      border-radius: 50%;
+    }
+    a {
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>GitHub Profile Stats Viewer</h1>
+
+  <p>This small app uses the GitHub REST API to show public GitHub profile statistics.</p>
+
+  <input id="username" value="mohammadtaiba" placeholder="GitHub username">
+  <button onclick="loadProfile()">Search</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function loadProfile() {
+      const username = document.getElementById("username").value.trim();
+      const result = document.getElementById("result");
+
+      if (!username) {
+        result.innerHTML = "<p>Please enter a GitHub username.</p>";
+        return;
+      }
+
+      result.innerHTML = "<p>Loading...</p>";
+
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`);
+
+        if (!response.ok) {
+          result.innerHTML = "<p>User not found.</p>";
+          return;
+        }
+
+        const data = await response.json();
+
+        result.innerHTML = `
+          <div class="card">
+            <img src="${data.avatar_url}" alt="${data.login}">
+            <h2>${data.name || data.login}</h2>
+            <p><strong>Username:</strong> ${data.login}</p>
+            <p><strong>Public Repositories:</strong> ${data.public_repos}</p>
+            <p><strong>Followers:</strong> ${data.followers}</p>
+            <p><strong>Following:</strong> ${data.following}</p>
+            <p><strong>Profile:</strong> <a href="${data.html_url}" target="_blank">${data.html_url}</a></p>
+          </div>
+        `;
+      } catch (error) {
+        result.innerHTML = "<p>Error loading GitHub profile.</p>";
+      }
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>
