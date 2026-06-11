@@ -1,20 +1,22 @@
-﻿# GitHub Profile Stats Viewer
+# GitHub Profile Stats Viewer
 
 A small web app that uses the GitHub REST API to display public GitHub profile statistics.
+
+## Live Demo
+
+https://mohammadtaiba.github.io/github-profile-stats-viewer/
 
 ## Features
 
 - Search GitHub users by username
-- Display avatar, name, followers and public repositories
+- Display avatar, name, username, followers and public repositories
 - Uses the official GitHub REST API
-- Simple static HTML, CSS and JavaScript project
+- Built with HTML, CSS and JavaScript
+- Hosted with GitHub Pages
 
 ## API Usage
 
-This project uses:
+This project uses the GitHub REST API endpoint:
 
 ```text
 https://api.github.com/users/{username}
-Purpose
-
-This repository was created as a small GitHub API integration project.
